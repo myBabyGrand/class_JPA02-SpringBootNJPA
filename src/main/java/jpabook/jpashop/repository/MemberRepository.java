@@ -15,7 +15,7 @@ public class MemberRepository {
 
 //    @PersistenceContext
 //    private EntityManager em;
-
+    @PersistenceContext
     private final EntityManager em;
 
     public void save(Member member){
@@ -27,7 +27,7 @@ public class MemberRepository {
     }
 
     public List<Member> findAll(){
-        return em.createNamedQuery("select m from Member m", Member.class).getResultList();//JPQL
+        return em.createQuery("select m from Member m", Member.class).getResultList();//JPQL
     }
 
     public List<Member> findByName(String name){
