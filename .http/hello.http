@@ -1,1 +1,16 @@
-GET https://www.devbeginner.com
+#POST http://localhost:8080/api/v2/members
+#Content-Type: application/json
+#
+#{
+#  "name": "hello"
+#}
+
+#PUT http://localhost:8080/api/v2/members/1
+#Content-Type: application/json
+#
+#{
+#  "name": "hello2"
+#}
+
+
+GET http://localhost:8080/api/v1/members
