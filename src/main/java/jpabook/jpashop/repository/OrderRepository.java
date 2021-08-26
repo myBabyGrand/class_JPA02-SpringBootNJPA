@@ -43,7 +43,7 @@ public class OrderRepository {
     /**
      * JPQL
      * */
-    private List<Order> findAllByJPQL(OrderSearch orderSearch) {
+    public List<Order> findAllByJPQL(OrderSearch orderSearch) {
         String jpql = "select o From Order o join o.member m";
         boolean isFirstCondition = true;
 
@@ -107,4 +107,5 @@ public class OrderRepository {
         return query.getResultList();
 
     }
+
 }
