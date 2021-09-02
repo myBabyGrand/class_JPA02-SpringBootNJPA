@@ -1,5 +1,6 @@
 package jpabook.jpashop.repository;
 
+import jpabook.jpashop.api.OrderApiController;
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderSearch;
@@ -12,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -109,6 +111,8 @@ public class OrderRepository {
 
     }
 
+    //fetch join은 두번이상사용 하면 안됨 -> 데이터가 뻥튀기(부정확하게 조회) 될 수 있음
+    //paging 불가
     public List<Order> findAllWithMemberDelivery() {
         return em.createQuery(
                  "select o from Order o "+
@@ -117,4 +121,12 @@ public class OrderRepository {
     }
 
 
+    public List<Order> findAllWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o "+
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems oi " +
+                        " join fetch oi.item i",Order.class).getResultList();
+    }
 }
