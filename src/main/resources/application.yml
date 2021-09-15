@@ -17,6 +17,8 @@ spring:
         format_sql: true
         #in 절에 들어가는 갯수
         default_batch_fetch_size: 100
+    #OSIV
+    open-in-view: false
 
 logging.level:
   org.hibernate.SQL: debug
