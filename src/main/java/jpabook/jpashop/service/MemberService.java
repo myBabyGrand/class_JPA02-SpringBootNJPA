@@ -2,6 +2,7 @@ package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.repository.MemberRepository;
+import jpabook.jpashop.repository.MemberRepository_class;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor//생성자 injection
 public class MemberService {
     @Autowired
-    private final MemberRepository memberRepository;
+    private final MemberRepository_class memberRepository;
+    @Autowired
+    private final MemberRepository memberRepository_springJPA;
 
 //    //생성자 Injection
 //    @Autowired
@@ -32,16 +35,20 @@ public class MemberService {
     }
 
     private void validateDuplicateMember(Member member) {
-        if(!memberRepository.findByName(member.getName()).isEmpty()){
+//        if(!memberRepository.findByName(member.getName()).isEmpty()){
+        if(!memberRepository_springJPA.findByName(member.getName()).isEmpty()){
             throw new IllegalStateException("이미 등록된 이름입니다."+member.getName());
         }
     }
     //회원 전체조회
     public List<Member> findMembers(){
-        return memberRepository.findAll();
+
+//        return memberRepository.findAll();
+        return memberRepository_springJPA.findAll();
     }
     public Member findOne(Long memberId){
-        return memberRepository.findOne(memberId);
+//        return memberRepository.findOne(memberId);
+        return memberRepository_springJPA.findById(memberId).orElseThrow(NullPointerException::new);
     }
 
     @Transactional
